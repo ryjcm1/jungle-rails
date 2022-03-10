@@ -7,4 +7,8 @@ class Sale < ActiveRecord::Base
     starts_on > Date.current
   end
 
+  def active?
+    !upcoming? && !finished?
+  end
+
 end
