@@ -47,15 +47,31 @@ RSpec.describe User, type: :model do
       subject.password_confirmation = "biabh"
       expect(subject).to be_invalid
     end
+  end
 
-    describe '.authenticate_with_credentials' do
-      it 'should return a user object when login in authenticating with email that contains spaces around it' do
-        subject.save
-        user = User.authenticate_with_credentials('   maggiesfarm@nomore.com   ', 'biabhs')
-        expect(user).to be_instance_of(User)
+  describe '.authenticate_with_credentials' do
 
-      end
+    subject do
+      described_class.new(first_name: 'Bob', last_name: 'Dylan', email: 'maggiesfarm@nomore.com', password: 'biabhs', password_confirmation: 'biabhs')
     end
 
+    it 'should return the user object associated with the email provided when logining in  with an email that contains spaces around it' do
+      subject.save
+      user = User.authenticate_with_credentials('   maggiesfarm@nomore.com   ', 'biabhs')
+      expect(user).to be_instance_of(User)
+
+    end
+    it 'should return the user object associated with the email provided when the characters are not in the correct case' do
+      subject.save
+      user = User.authenticate_with_credentials('mAggiesFARM@nomore.Com', 'biabhs')
+      expect(user).to be_instance_of(User)
+    end
+    it 'should should return the user object associated with the email when provided correct case sensitive email and password' do
+      subject.save
+      user = User.authenticate_with_credentials('maggiesfarm@nomore.com', 'biabhs')
+      expect(user).to be_instance_of(User)
+    end
+    
   end
+
 end
