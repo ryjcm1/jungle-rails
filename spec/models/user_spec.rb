@@ -48,5 +48,14 @@ RSpec.describe User, type: :model do
       expect(subject).to be_invalid
     end
 
+    describe '.authenticate_with_credentials' do
+      it 'should return a user object when login in authenticating with email that contains spaces around it' do
+        subject.save
+        user = User.authenticate_with_credentials('   maggiesfarm@nomore.com   ', 'biabhs')
+        expect(user).to be_instance_of(User)
+
+      end
+    end
+
   end
 end
