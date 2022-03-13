@@ -15,6 +15,13 @@ RSpec.describe User, type: :model do
       expect(subject).to be_invalid
 
     end
+
+    it 'should be invalid if no password confirmation is provided' do
+      subject.password_confirmation = nil
+      expect(subject).to be_invalid
+
+    end
+
     it 'should be invalid if password confirmation does not match' do
       subject.password_confirmation = 'biabsss'
       expect(subject).to be_invalid
