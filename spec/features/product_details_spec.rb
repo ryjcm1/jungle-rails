@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "ProductDetails", type: :feature do
+RSpec.feature "Visitor navigates to product detail page", type: :feature, js: true do
   before :each do
     @category = Category.create! name: 'Apparel'
 
@@ -13,5 +13,17 @@ RSpec.feature "ProductDetails", type: :feature do
         price: 64.99
       )
     end
+  end
+
+  scenario "They see product detail of one item" do
+    visit root_path
+
+    first('.product').click_link('Details')
+
+    save_screenshot
+
+    expect(page).to have_css 'img', count: 1
+
+
   end
 end
