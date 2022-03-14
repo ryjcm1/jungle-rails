@@ -20,7 +20,7 @@ RSpec.feature "Visitor navigates to product detail page", type: :feature, js: tr
 
     first('.product').click_link('Details')
 
-    save_screenshot
+    # save_screenshot
 
     expect(page).to have_css 'img', count: 1
 
