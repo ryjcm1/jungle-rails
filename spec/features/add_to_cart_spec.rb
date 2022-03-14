@@ -16,8 +16,16 @@ RSpec.feature "Visitor navigates to product detail page", type: :feature, js: tr
   end
 
   scenario "They should see the number in cart number change from 0 to 1" do
+    # ACT
+    visit root_path
 
+    
+    first('.product').click_button('Add')
+    
+    # DEBUG / VERIFY
+    save_screenshot
 
+    expect(page).to have_content('My Cart (1)')
 
   end
 end
